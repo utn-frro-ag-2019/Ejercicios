@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Algorítmos Genéticos</title>
+  <!-- CSS files-->
+  <link rel="stylesheet" href="css/master.css">
+</head>
+
+<body>
+  <div class="row_col header">
+    <h1 class="title">Algorítmos Genéticos</h1>
+    <h3 class="subtitle">Práctico N°1 - Máximo de una función</h3>
+  </div>
+
+  <div class="settings">
+    <div class="row_col">
+      <div class="slider_cont">
+        <p class="slider_title">Probabilidad de Reproducción: </p>
+        <div class="slider">
+          <input id="c_slider" class="slider-range" type="range" value="0.75" min="0" max="1" step="0.001">
+          <input id="c_value" class="slider-value" type="number" name="" value="0.75" min="0" max="1" step="0.001" oninput="validity.valid||(value=0);">
+        </div>
+      </div>
+      <div class="slider_cont">
+        <p class="slider_title">Probabilidad de Mutación: </p>
+        <div class="slider">
+          <input id="m_slider" class="slider-range" type="range" value="0.05" min="0" max="1" step="0.001">
+          <input id="m_value" class="slider-value" type="number" name="" value="0.05" min="0" max="1" step="0.001" oninput="validity.valid||(value=0);">
+        </div>
+      </div>
+    </div>
+    <div class="row_col">
+      <div class="slider_cont">
+        <p class="slider_title">Población Inicial: </p>
+        <div class="slider">
+          <input id="p_slider" class="slider-range" type="range" value="10" min="1" max="400" step="1">
+          <input id="p_value" class="slider-value" type="number" name="" value="10" min="1" max="400" oninput="validity.valid||(value=1);">
+        </div>
+      </div>
+      <div class="slider_cont">
+        <p class="slider_title">Cantidad de Iteraciones:</p>
+        <div class="slider">
+          <input id="i_slider" class="slider-range" type="range" value="20" min="1" max="2000" step="1">
+          <input id="i_value" class="slider-value" type="number" name="" value="20" min="1" max="2000" oninput="validity.valid||(value=1);">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row_col graph_avg">
+    <div class="cc" id="cc_avg">
+      <canvas id="canvas_avg"></canvas>
+    </div>
+    <div class="epigraph">
+      <p>Valor promedio de la función Objetivo: <span id="funcVal_avg">-</span></p>
+    </div>
+  </div>
+
+  <div class="row_graphs">
+    <div class="row_col graph_min">
+      <div class="cc" id="cc_min">
+        <canvas id="canvas_min"></canvas>
+      </div>
+      <div class="epigraph">
+        <p>Valor decimal mínimo: <span id="decimal_min">-</span></p>
+        <p>Valor de la función objetivo: <span id="funcVal_min">-</span></p>
+        <p>Cromosoma: <span id="chromosome_min">-</span></p>
+      </div>
+    </div>
+
+    <div class="row_col graph_max">
+      <div class="cc" id="cc_max">
+        <canvas id="canvas_max"></canvas>
+      </div>
+      <div class="epigraph">
+        <p>Valor decimal máximo: <span id="decimal_max">-</span></p>
+        <p>Valor de la función objetivo: <span id="funcVal_max">-</span></p>
+        <p>Cromosoma: <span id="chromosome_max">-</span></p>
+      </div>
+    </div>
+  </div>
+
+  <button class="button" type="button" name="button" onclick="run()">Comenzar / Resetear</button>
+
+  <!-- JavaScript files-->
+  <script src="js/classes.js" charset="utf-8"></script>
+  <script src="js/canvas.js" charset="utf-8"></script>
+  <script src="js/menu.js" charset="utf-8"></script>
+</body>
+
+</html>
