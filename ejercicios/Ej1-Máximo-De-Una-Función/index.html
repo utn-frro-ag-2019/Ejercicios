@@ -54,9 +54,6 @@
     <div class="cc" id="cc_avg">
       <canvas id="canvas_avg"></canvas>
     </div>
-    <div class="epigraph">
-      <p>Valor promedio de la función Objetivo: <span id="funcVal_avg">-</span></p>
-    </div>
   </div>
 
   <div class="row_graphs">
@@ -64,21 +61,11 @@
       <div class="cc" id="cc_min">
         <canvas id="canvas_min"></canvas>
       </div>
-      <div class="epigraph">
-        <p>Valor decimal mínimo: <span id="decimal_min">-</span></p>
-        <p>Valor de la función objetivo: <span id="funcVal_min">-</span></p>
-        <p>Cromosoma: <span id="chromosome_min">-</span></p>
-      </div>
     </div>
 
     <div class="row_col graph_max">
       <div class="cc" id="cc_max">
         <canvas id="canvas_max"></canvas>
-      </div>
-      <div class="epigraph">
-        <p>Valor decimal máximo: <span id="decimal_max">-</span></p>
-        <p>Valor de la función objetivo: <span id="funcVal_max">-</span></p>
-        <p>Cromosoma: <span id="chromosome_max">-</span></p>
       </div>
     </div>
   </div>
@@ -86,6 +73,7 @@
   <button class="button" type="button" name="button" onclick="run()">Comenzar / Resetear</button>
 
   <!-- JavaScript files-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="js/classes.js" charset="utf-8"></script>
   <script src="js/canvas.js" charset="utf-8"></script>
   <script src="js/menu.js" charset="utf-8"></script>

@@ -24,9 +24,9 @@ i_slider.oninput = function() {
 // --------------------------------------------------------------------
 
 let enviroment;
-let graph_avg = new Graph_avg();
-let graph_min = new Graph_min();
-let graph_max = new Graph_max();
+let graph_avg = new Graph("avg", "valor promedio");
+let graph_min = new Graph("min", "valor mínimo");
+let graph_max = new Graph("max", "valor máximo");
 
 function run() {
 
@@ -37,14 +37,19 @@ function run() {
 
   enviroment = new Enviroment(crossoverProb, mutateProb, populationSize);
 
-  graph_avg.reset(iterations);
-  graph_min.reset(iterations);
-  graph_max.reset(iterations);
+  graph_avg.reset();
+  graph_max.reset();
+  graph_min.reset();
 
   for (var i = 0; i < iterations; i++) {
     enviroment.step();
-    graph_max.graph(enviroment.bestCell());
-    graph_min.graph(enviroment.worstCell());
-    graph_avg.graph(enviroment.average);
+    graph_avg.add(enviroment.average);
+    graph_max.add(enviroment.bestCell().currentValue);
+    graph_min.add(enviroment.worstCell().currentValue);
   }
+
+  graph_avg.graph();
+  graph_max.graph();
+  graph_min.graph();
+
 }

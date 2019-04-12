@@ -53,7 +53,7 @@ body {
   align-items: center;
   background: white;
   border-radius: 8px;
-  border: 3px solid gray;
+  border: 1px solid gray;
   margin: 0.5rem;
 }
 
@@ -151,7 +151,7 @@ input::-moz-focus-outer {
 .cc {
   background: white;
   border-radius: 8px;
-  border: 3px solid gray;
+  border: 1px solid gray;
   overflow: hidden;
 }
 
@@ -184,14 +184,6 @@ canvas {
   width: 100%;
 }
 
-.epigraph p {
-  margin: 0;
-  margin-left: 1rem;
-  margin-top: 0.2rem;
-  font-weight: bolder;
-  font-size: 0.75rem;
-}
-
 /*-------- BUTTON --------*/
 .button {
   position: sticky;
@@ -220,6 +212,15 @@ canvas {
     flex-direction: column;
     justify-content: center;
   }
+
+  .graph_min {
+    margin: 1vh;
+  }
+
+  .graph_max {
+    margin: 1vh;
+  }
+
 
   .settings {
     width: 90vw;
