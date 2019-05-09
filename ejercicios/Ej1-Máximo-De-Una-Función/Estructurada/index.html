@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<title>TP1 - AG</title>
+	<link rel="stylesheet" type="text/css" href="master.css">
+</head>
+
+<body>
+	<div class="flex" id="titleDiv">
+		<p id="mainTitle">Trabajo Práctico N°1</p>
+	</div>
+	<div class="flex" id="features">
+		<div class="flex" id="genNumDiv">
+			<label class="featLabel">Generaciones</label>
+			<input class="featInput" type="number" id="genNum" value="20">
+		</div>
+		<div class="flex" id="popNumDiv">
+			<label class="featLabel">Individuos</label>
+			<input class="featInput" type="number" id="popNum" value="10">
+		</div>
+		<div class="flex" id="crossProbDiv">
+			<label class="featLabel">Crossover</label>
+			<input class="featInput" type="number" id="crossProb" value="0.75">
+		</div>
+		<div class="flex" id="mutProbDiv">
+			<label class="featLabel">Mutación</label>
+			<input class="featInput" type="number" id="mutProb" value="0.05">
+		</div>
+	</div>
+	<div id="runDiv">
+		<button id="run">Run</button>
+	</div>
+
+	<div id="container">
+		<p class="tableTitle"></p>
+		<div class="flex" id="iterationTableDiv">
+			<table>
+				<tbody class="tableBody"></tbody>
+			</table>
+		</div>
+
+		<div class="flex canvasDiv">
+			<p class="graphTitle">Máximos</p>
+			<canvas id="canvas1"></canvas>
+		</div>
+		<div class="flex canvasDiv">
+			<p class="graphTitle">Mínimos</p>
+			<canvas id="canvas2"></canvas>
+		</div>
+		<div class="flex canvasDiv">
+			<p class="graphTitle">Promedios</p>
+			<canvas id="canvas3"></canvas>
+		</div>
+	</div>
+
+</body>
+
+<footer>
+	<p>Gastón Amengual - Algoritmos Genéticos - 2019</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script src="script.js"></script>
+
+</html>

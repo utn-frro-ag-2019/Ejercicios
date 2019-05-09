@@ -46,6 +46,5 @@ class Graph {
 
   graph() {
     this.chart.update();
-
   }
 }
