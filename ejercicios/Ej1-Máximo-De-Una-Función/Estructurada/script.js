@@ -11,9 +11,7 @@ var labels;
 var data1; //CANVAS1
 var data2; //CANVAS2
 var data3; //CANVAS3
-
 var chart1, chart2, chart3;
-
 
 
 //RANDOM NUMBER BETWEEN 0 AND MAX
@@ -318,7 +316,12 @@ $("#run").on("click", function() {
       data1.push(parseFloat(Math.max.apply(null, decimalPopulation).toFixed(5)));
       data2.push(parseFloat(Math.min.apply(null, decimalPopulation).toFixed(5)));
       data3.push(parseFloat((sum(decimalPopulation) / decimalPopulation.length).toFixed(5)));
+
     }
+
+    data1.unshift(0);
+    data2.unshift(0);
+    data3.unshift(0);
 
     graph();
 
