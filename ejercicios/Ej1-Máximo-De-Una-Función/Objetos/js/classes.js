@@ -41,14 +41,14 @@ class Cell {
 }
 
 class Enviroment {
-  constructor(crossoverProb, mutateProb, populationSize) {
+  constructor(crossoverProb, mutateProb, populationSize, UseElitism) {
     this.crossoverProb = crossoverProb;
     this.mutateProb = mutateProb;
+    this.UseElitism = UseElitism;
 
     this.populationSize = populationSize;
-    if (this.populationSize % 2 == 1) {
-      this.populationSize++;
-    }
+    if (this.populationSize < 2) this.populationSize = 2;
+    if (this.UseElitism && this.populationSize % 2 == 0) this.populationSize++;
 
     this.average = 0;
 
@@ -87,7 +87,7 @@ class Enviroment {
     for (let cell of this.population) {
       let decimalValue = parseInt(cell.chromosome.join(""), 2);
       let value = this.objectiveFunction(decimalValue);
-      if (value > bestValue) {
+      if (value >= bestValue) {
         bestValue = value;
         bestCell = cell;
       }
@@ -102,7 +102,7 @@ class Enviroment {
     for (let cell of this.population) {
       let decimalValue = parseInt(cell.chromosome.join(""), 2);
       let value = this.objectiveFunction(decimalValue);
-      if (value < worstValue) {
+      if (value <= worstValue) {
         worstValue = value;
         worstCell = cell;
       }
@@ -112,6 +112,14 @@ class Enviroment {
 
   step() {
     let newPopulation = [];
+
+    let theBest = 0;
+    if (this.UseElitism) {
+      let bestChromosome = this.bestCell().chromosome.slice();
+      let elite = new Cell(bestChromosome);
+      newPopulation.push(elite);
+      theBest = 1;
+    }
 
     let roulette = [];
     for (let cell of this.population) {
@@ -123,7 +131,7 @@ class Enviroment {
     }
 
     let preselection = [];
-    for (let i = 0; i < this.populationSize; i++) {
+    for (let i = 0; i < this.populationSize - theBest; i++) {
       let cell = roulette[Math.floor(Math.random() * roulette.length)];
       preselection.push(cell);
     }

@@ -8,6 +8,8 @@ const m_value = document.getElementById('m_value');
 const p_value = document.getElementById('p_value');
 const i_value = document.getElementById('i_value');
 
+const elitism = document.getElementById('elitism');
+
 c_slider.oninput = function() {
   c_value.value = this.value;
 }
@@ -35,7 +37,9 @@ function run() {
   let populationSize = parseInt(p_value.value);
   let iterations = parseInt(i_value.value);
 
-  enviroment = new Enviroment(crossoverProb, mutateProb, populationSize);
+  let UseElitism = elitism.checked;
+
+  enviroment = new Enviroment(crossoverProb, mutateProb, populationSize, UseElitism);
 
   graph_avg.reset();
   graph_max.reset();

@@ -11,12 +11,12 @@ class Graph {
         labels: this.labels,
         datasets: [{
           label: this.label,
-          backgroundColor: 'rgb(255, 0, 132)',
-          borderColor: 'rgb(255, 0, 132)',
+          backgroundColor: 'rgb(0, 0, 0)',
+          borderColor: 'rgb(0, 0, 0)',
           data: this.data,
           fill: false,
-          borderWidth: 1,
-          pointRadius: 1,
+          borderWidth: 2,
+          pointRadius: 2,
         }]
       },
       options: {
