@@ -20,22 +20,14 @@ function getRandomInt(max) {
 }
 
 
-//SUMS ARRAY NUMBERS
-function sum(input) {
-  if (toString.call(input) !== "[object Array]")
-    return false;
-  var total = 0;
-  for (var i = 0; i < input.length; i++) {
-    if (isNaN(input[i])) {
-      continue;
-    }
-    total += Number(input[i]);
-  }
+//SUMA LOS NÚMEROS DE UN ARRAY
+function sum(input) {if (toString.call(input) !== "[object Array]")return false;var total = 0;
+  for (var i = 0; i < input.length; i++) {if (isNaN(input[i])) {continue;}total += Number(input[i]);}
   return total;
 }
 
 
-//CONVERTS DECIMAL TO BINARY
+//CONVIERTE DECIMAL A BINARIO
 function dec2bin(dec) {
   return (dec >>> 0).toString(2);
 }
@@ -66,7 +58,7 @@ function graph() {
     data: {
       labels: labels,
       datasets: [{
-        label: "Máximos",
+        label: "Promedios",
         backgroundColor: '#3F3FFF',
         borderColor: '#3F3FFF',
         data: data1,
@@ -102,7 +94,7 @@ function graph() {
     data: {
       labels: labels,
       datasets: [{
-        label: "Mínimos",
+        label: "Máximos",
         backgroundColor: '#E01616',
         borderColor: '#E01616',
         data: data2,
@@ -133,7 +125,7 @@ function graph() {
     data: {
       labels: labels,
       datasets: [{
-        label: "Promedios",
+        label: "Mínimos",
         backgroundColor: '#E0BB16',
         borderColor: '#E0BB16',
         data: data3,
@@ -155,6 +147,41 @@ function graph() {
   });
 }
 
+//DEVUELVE MEJOR IMÁGEN
+function getBestImage(){
+	let populationDecimal = [];
+	for(var i = 0; i < popNum ; i++){
+		populationDecimal.push(objFunction(parseInt(population[i].join(""), 2)));
+	}
+	return Math.max.apply(null, populationDecimal);
+}
+
+//DEVUELVE MEJOR INDIVIDUO
+function getBestCell(){
+	let populationDecimal = [];
+	for(var i = 0; i < popNum; i++){
+		populationDecimal.push(parseInt(population[i].join(""), 2));
+	}
+	return Math.max.apply(null, populationDecimal);
+}
+
+//DEVUELVE PEOR IMÁGEN
+function getWorstImage(){
+	let populationDecimal = [];
+	for(var i = 0; i < popNum ; i++){
+		populationDecimal.push(objFunction(parseInt(population[i].join(""), 2)));
+	}
+	return Math.min.apply(null, populationDecimal);
+}
+
+//DEVUELVE PROMEDIO DE IMÁGENES
+function getAverageImage(){
+	let populationDecimal = [];
+	for(var i = 0; i < popNum ; i++){
+		populationDecimal.push(objFunction(parseInt(population[i].join(""), 2)));
+	}
+	return sum(populationDecimal)/populationDecimal.length;
+}
 
 
 //DEFINE PRIMERA POBLACIÓN
@@ -171,7 +198,6 @@ function definePopulation() {
 }
 
 
-
 //CALCULA FITNESS
 function calcFitness() {
   var cromosome;
@@ -180,13 +206,11 @@ function calcFitness() {
   for (var i = 0; i < popNum; i++) {
     sumObj += objFunction(parseInt(population[i].join(""), 2)); //ADDS OBJECT FUNCTION OF POPULATION
   }
-  //console.log(sumObj / popNum);
   for (var i = 0; i < popNum; i++) {
     objFCromosome = objFunction(parseInt(population[i].join(""), 2));
     fitness.push((objFCromosome / sumObj));
   }
 }
-
 
 
 //MATING POOL
@@ -197,19 +221,21 @@ function matingPool() {
       matPool.push(population[i]);
     }
   }
-  fitness = []; //EMPTIES FITNESS
+  fitness = []; //VACÍA FITNESS
 }
-
 
 
 //CROSSOVER
 function crossover() {
-  population = []; //EMPTIES POPULATION
-  var parents = [];
-  var cut; //SPLIT OF PARENTS
-  var prob; //PROBABILITY OF CROSSOVER
 
-  for (var i = 0; i < popNum; i++) {
+  var elit = getBestCell(); //INDIVIDUO ÉLITE
+  
+  population = []; //VACÍA POBLACIÓN
+  var parents = [];
+  var cut; //CORTE DE PADRES
+  var prob; //PROBABILIDAD DE CROSSOVER
+
+  for (var i = 0; i < popNum -1; i++) {
     parents[i] = matPool[getRandomInt(matPool.length)].slice(0);
   }
 
@@ -220,7 +246,7 @@ function crossover() {
     let child1 = [];
     let child2 = [];
 
-    //CROSSING PARENTS 1 AND 2
+    //CRUZA PADRES 1 Y 2
     prob = Math.random();
     if (prob < crossProb) {
       cut = getRandomInt(geneNum);
@@ -246,15 +272,18 @@ function crossover() {
       child2 = parent2.slice(0);
     }
 
-    //ADDS CHILDREN TO NEW POPULATION
+    //AGREGA HIJOS A LA NUEVA POBLACIÓN
     population.push(child1);
     population.push(child2);
   }
+
+  //AGREGA A LA NUEVA POBLACIÓN EL INDIVIDUO ÉLITE
+  var elit = dec2bin(elit).split("");
+  population.push(elit);
 }
 
 
-
-//MUTATION
+//MUTACIÓN
 function mutation() {
   var prob, indexMut;
   for (var i = 0; i < popNum; i++) {
@@ -279,7 +308,7 @@ $("#run").on("click", function() {
   n = $("#genNum").val();
   popNum = $("#popNum").val();
 
-  if (popNum % 2 == 0 && mutProb >= 0 && mutProb <= 1 && crossProb >= 0 && crossProb <= 1) {
+  if (popNum % 2 == 1 && mutProb >= 0 && mutProb <= 1 && crossProb >= 0 && crossProb <= 1) {
 
     $(".tableBody").empty(); //VACÍA TABLA
     labels = []; //VACÍA GRAFICO
@@ -293,29 +322,21 @@ $("#run").on("click", function() {
 
     definePopulation();
 
-    //N ITERATIONS
+    //N ITERACIONES
     for (var i = 0; i <= n; i++) {
 
-      var decimalPopulation = [];
-      var decimalTruePopulation = [];
       calcFitness();
       matingPool();
-      crossover();
+      crossover()
       mutation();
 
-      //VALORES PARA LA TABLA
-      for (var j = 0; j < popNum; j++) {
-        decimalPopulation.push(objFunction(parseInt(population[j].join(""), 2)));
-        decimalTruePopulation.push(parseInt(population[j].join(""), 2));
-      }
-
       //APPENDS VALORES
-      $(".tableBody").append('<tr><td>' + i + '</td><td>' + dec2bin(Math.max.apply(null, decimalTruePopulation)) + '</td><td>' + (sum(decimalPopulation) / decimalPopulation.length).toFixed(5) + '</td><td>' + Math.max.apply(null, decimalPopulation).toFixed(5) + '</td><td>' + Math.min.apply(null, decimalPopulation).toFixed(5) + '</td></tr>');
+      $(".tableBody").append('<tr><td>' + i + '</td><td>' + dec2bin(getBestCell()) + '</td><td>' + getAverageImage().toFixed(5) + '</td><td>' + getBestImage().toFixed(5) + '</td><td>' + getWorstImage().toFixed(5) + '</td></tr>');
 
       labels.push(i);
-      data1.push(parseFloat(Math.max.apply(null, decimalPopulation).toFixed(5)));
-      data2.push(parseFloat(Math.min.apply(null, decimalPopulation).toFixed(5)));
-      data3.push(parseFloat((sum(decimalPopulation) / decimalPopulation.length).toFixed(5)));
+      data1.push(getAverageImage().toFixed(5));
+      data2.push(getBestImage().toFixed(5));
+      data3.push(getWorstImage().toFixed(5));
 
     }
 
