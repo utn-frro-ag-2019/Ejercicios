@@ -54,7 +54,12 @@ let currentRoute = [];
 
 const graph = (route) => {
   currentRoute = route;
+  graphCurrentRoute()
 }
+
+window.addEventListener('resize', function() {
+  graphCurrentRoute()
+});
 
 // --------------------------------------------------------------------
 
@@ -110,12 +115,3 @@ function graphCurrentRoute(){
   `
 
 }
-
-function loop() {
-  setTimeout(() => {
-    requestAnimationFrame(loop);
-    graphCurrentRoute();
-  }, 1000 / 15);
-}
-
-loop();

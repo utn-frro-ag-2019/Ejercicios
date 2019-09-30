@@ -1,21 +1,71 @@
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Problema del Viajante</title>
-    <!-- CSS files-->
-    <link rel="stylesheet" href="css/master.css">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Problema del Viajante</title>
+  <!-- CSS files-->
+  <link rel="stylesheet" href="css/master.css">
+</head>
 
-  <body>
-    <button type="button" id="findBest">buscar la más óptima</button>
+<body>
+  <div class="row_col header">
+    <h1 class="title">Algorítmos Genéticos</h1>
+    <h3 class="subtitle">Práctico N°3 - Problema del Viajante - Algoritmo Genético</h3>
+  </div>
+  <div class="row">
+    <button class="button" type="button" id="geneticButton">Iniciar / Detener</button>
+    <button class="button" type="button" id="resetButton">Reset</button>
+  </div>
+  <div class="settings">
+    <div class="row_col">
+      <div class="slider_cont">
+        <p class="slider_title">Probabilidad de Reproducción: </p>
+        <div class="slider">
+          <input id="c_slider" class="slider-range" type="range" value="0.95" min="0" max="1" step="0.001">
+          <input id="c_value" class="slider-value" type="number" name="" value="0.95" min="0" max="1" step="0.001" oninput="validity.valid||(value=0);">
+        </div>
+      </div>
+      <div class="slider_cont">
+        <p class="slider_title">Probabilidad de Mutación: </p>
+        <div class="slider">
+          <input id="m_slider" class="slider-range" type="range" value="0.05" min="0" max="1" step="0.001">
+          <input id="m_value" class="slider-value" type="number" name="" value="0.05" min="0" max="1" step="0.001" oninput="validity.valid||(value=0);">
+        </div>
+      </div>
+    </div>
+    <div class="row_col">
+      <div class="slider_cont">
+        <p class="slider_title">Población Inicial: </p>
+        <div class="slider">
+          <input id="p_slider" class="slider-range" type="range" value="50" min="1" max="400" step="1">
+          <input id="p_value" class="slider-value" type="number" name="" value="50" min="1" max="400" oninput="validity.valid||(value=1);">
+        </div>
+      </div>
+      <div class="slider_cont">
+        <p class="slider_title">Iteraciones por segundo:</p>
+        <div class="slider">
+          <input id="i_slider" class="slider-range" type="range" value="100" min="1" max="2000" step="1">
+          <input id="i_value" class="slider-value" type="number" name="" value="100" min="1" max="2000" oninput="validity.valid||(value=1);">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="canvas_container">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div id="graph">
+    </div>
+  </div>
 
-    <!-- JavaScript files-->
-    <script src="../vendor/js/capitals.js" charset="utf-8"></script>
-    <script src="../vendor/js/graph.js" charset="utf-8"></script>
-    <script src="js/script.js" charset="utf-8"></script>
-  </body>
+  <!-- JavaScript files-->
+  <script src="../vendor/js/capitals.js" charset="utf-8"></script>
+  <script src="../vendor/js/graph.js" charset="utf-8"></script>
+  <script src="js/route.js" charset="utf-8"></script>
+  <script src="js/environment.js" charset="utf-8"></script>
+  <script src="js/script.js" charset="utf-8"></script>
+</body>
 
 </html>
