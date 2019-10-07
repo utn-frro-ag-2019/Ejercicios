@@ -37,7 +37,7 @@ const resetFunction = () => {
   crossoverProb = parseFloat(c_value.value);
   mutateProb = parseFloat(m_value.value);
   populationSize = parseInt(p_value.value);
-  iterationsPs = parseInt(i_value.value);
+  iterationsPs = Math.floor(parseInt(i_value.value) / 10) + 1;
   environment = new Environment(crossoverProb, mutateProb, populationSize);
   graph([]);
 }
@@ -69,14 +69,18 @@ resetButton.addEventListener("click", () => {
 function loop() {
   setTimeout(() => {
     requestAnimationFrame(loop);
+
     if (active) {
-      environment.step();
+      for (let i = 0; i < iterationsPs; i++) {
+        environment.step();
+      }
       let bestRoute = environment.bestRoute();
       let r = [...bestRoute.chromosome];
       r.push(r[0]);
       graph(r);
     }
-  }, 1000 / iterationsPs);
+
+  }, 100);
 }
 
 loop();

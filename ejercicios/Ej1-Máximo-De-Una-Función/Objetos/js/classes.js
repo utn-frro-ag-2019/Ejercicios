@@ -40,7 +40,7 @@ class Cell {
   }
 }
 
-class Enviroment {
+class Environment {
   constructor(crossoverProb, mutateProb, populationSize, UseElitism) {
     this.crossoverProb = crossoverProb;
     this.mutateProb = mutateProb;
