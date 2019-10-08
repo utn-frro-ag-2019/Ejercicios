@@ -14,13 +14,15 @@ const objectiveFunction = (route) => {
 /*-----------------------------------------------------------*/
 
 class Environment {
-  constructor(crossoverProb, mutateProb, populationSize) {
+  constructor(crossoverProb, mutateProb, populationSize, UseElitism) {
     this.crossoverProb = crossoverProb;
     this.mutateProb = mutateProb;
+    this.UseElitism = UseElitism;
 
     this.populationSize = populationSize;
     if (this.populationSize < 2) this.populationSize = 2;
-    if (this.populationSize % 2 == 1) this.populationSize++;
+    if (this.UseElitism && this.populationSize % 2 == 0) this.populationSize++;
+    if (!this.UseElitism && this.populationSize % 2 == 1) this.populationSize++;
 
     this.average = 0;
 
@@ -72,6 +74,14 @@ class Environment {
   step() {
     let newPopulation = [];
 
+    let theBest = 0;
+    if (this.UseElitism) {
+      let bestChromosome = this.bestRoute().chromosome.slice();
+      let elite = new Route(bestChromosome);
+      newPopulation.push(elite);
+      theBest = 1;
+    }
+
     let roulette = [];
     for (let route of this.population) {
       let prob = Math.floor(route.currentFitness * 500) + 1;
@@ -82,7 +92,7 @@ class Environment {
     }
 
     let preselection = [];
-    for (let i = 0; i < this.populationSize; i++) {
+    for (let i = 0; i < this.populationSize - theBest; i++) {
       let route = roulette[Math.floor(Math.random() * roulette.length)];
       preselection.push(route);
     }

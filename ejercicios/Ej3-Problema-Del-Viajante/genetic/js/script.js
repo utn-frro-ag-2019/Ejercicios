@@ -13,6 +13,8 @@ const m_value = document.getElementById('m_value');
 const p_value = document.getElementById('p_value');
 const i_value = document.getElementById('i_value');
 
+const elitism = document.getElementById('elitism');
+
 c_slider.oninput = function() {
   c_value.value = this.value;
   resetFunction();
@@ -29,17 +31,8 @@ i_slider.oninput = function() {
   i_value.value = this.value;
   resetFunction();
 }
-
-/*-----------------------------------------------------------*/
-
-const resetFunction = () => {
-  active = false;
-  crossoverProb = parseFloat(c_value.value);
-  mutateProb = parseFloat(m_value.value);
-  populationSize = parseInt(p_value.value);
-  iterationsPs = Math.floor(parseInt(i_value.value) / 10) + 1;
-  environment = new Environment(crossoverProb, mutateProb, populationSize);
-  graph([]);
+elitism.onchange = function() {
+  resetFunction();
 }
 
 /*-----------------------------------------------------------*/
@@ -50,7 +43,21 @@ let crossoverProb;
 let mutateProb;
 let populationSize;
 let iterationsPs;
+let UseElitism;
 let environment;
+
+/*-----------------------------------------------------------*/
+
+const resetFunction = () => {
+  active = false;
+  crossoverProb = parseFloat(c_value.value);
+  mutateProb = parseFloat(m_value.value);
+  populationSize = parseInt(p_value.value);
+  iterationsPs = Math.floor(parseInt(i_value.value) / 10) + 1;
+  UseElitism = elitism.checked;
+  environment = new Environment(crossoverProb, mutateProb, populationSize, UseElitism);
+  graph([]);
+}
 
 resetFunction();
 
