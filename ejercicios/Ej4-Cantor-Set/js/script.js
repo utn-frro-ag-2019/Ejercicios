@@ -9,7 +9,7 @@ const drawLine = (x1, x2, y) => {
 
 const cantor = (x1, x2, y, counter) => {
   if (counter > 0) {
-    setTimeout(function() {
+    let to = setTimeout(function() {
       drawLine(x1, x2, y);
       let ax = x1 + ((x2 - x1) * 1 / 3);
       let bx = x1 + ((x2 - x1) * 2 / 3);
@@ -17,6 +17,7 @@ const cantor = (x1, x2, y, counter) => {
       cantor(x1, ax, y2, counter - 1);
       cantor(bx, x2, y2, counter - 1);
     }, 1000);
+    timeouts.push(to);
   }
 }
 
