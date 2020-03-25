@@ -49,6 +49,7 @@ class Environment {
     this.populationSize = populationSize;
     if (this.populationSize < 2) this.populationSize = 2;
     if (this.UseElitism && this.populationSize % 2 == 0) this.populationSize++;
+    if (!this.UseElitism && this.populationSize % 2 == 1) this.populationSize++;
 
     this.average = 0;
 
